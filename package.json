@@ -4,6 +4,7 @@
   "description": "Code Louisville Full-Stack JavaScript Final Project",
   "main": "app.js",
   "scripts": {
+    "start": "nodemon app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -16,5 +17,8 @@
   "bugs": {
     "url": "https://github.com/aallehoff/bucl_fs_final_project/issues"
   },
-  "homepage": "https://github.com/aallehoff/bucl_fs_final_project#readme"
+  "homepage": "https://github.com/aallehoff/bucl_fs_final_project#readme",
+  "dependencies": {
+    "express": "^4.17.1"
+  }
 }
