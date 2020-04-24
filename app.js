@@ -18,10 +18,16 @@ sequelize
     .authenticate()
     .then(() => {
         console.log('App: authenticated connection to database.')
-        // Start Express server
-        app.listen(port, () => {
-            console.log(`App: server listening on port ${port}`)
-        })
+        sequelize.sync({force: true}) // DROP TABLE IF EXISTS
+            .then(() => {
+                // Start Express server
+                app.listen(port, () => {
+                    console.log(`App: server listening on port ${port}`)
+                })
+            })
+            .catch((err) => {
+                console.error('App: failed to sync tables to database', err)
+            })
     })
     .catch((err) => {
         console.error('App: failed to authenticate connection to database.', err)
