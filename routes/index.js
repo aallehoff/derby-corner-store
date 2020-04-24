@@ -3,7 +3,10 @@ const express = require('express')
 const router = express.Router()
 
 function placeholderResponse(req, res) {
-    res.send(`Received ${req.method} to ${req.route.path}.`)
+    console.dir(req.body)
+    res.send(`Received ${req.method} to ${req.route.path}.
+    Body:
+    ${JSON.stringify(req.body)}`)
 }
 
 /* 

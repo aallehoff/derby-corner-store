@@ -3,8 +3,11 @@ const express = require('express')
 const app = express()
 const sequelize = require('./models').sequelize
 const routes = require('./routes')
+const bodyParser = require('body-parser').json()
 
 const port = 3000
+
+app.use(bodyParser)
 
 // Attach router
 app.use('/', routes)
