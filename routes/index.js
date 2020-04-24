@@ -1,6 +1,7 @@
 'use strict'
 const express = require('express')
 const router = express.Router()
+const db = require('../models')
 
 function placeholderResponse(req, res) {
     console.dir(req.body)
@@ -24,8 +25,11 @@ router.get('/client', (req, res) => {
     Create, Read, Update, Delete (CRUD) Routes
 */
 // READ all items
-router.get('/stock/all', (req, res) => {
-    placeholderResponse(req, res)
+router.get('/stock/all', async (req, res) => {
+    await db.Item.findAll()
+        .then((data) => {
+            res.json(data)
+        })
 })
 
 // CREATE new item
@@ -35,8 +39,15 @@ router.post('/stock/item', (req, res) => {
 
 // READ, UPDATE, DELETE specific item
 router.route('/stock/item/:upc')
-    .get((req, res) => {
-        placeholderResponse(req, res)
+    .get(async (req, res) => {
+        await db.Item.findOne({
+            where: {
+                upc: req.params.upc
+            }
+        })
+        .then((data) => {
+            res.json(data)
+        })
     })
     .put((req, res) => {
         placeholderResponse(req, res)
