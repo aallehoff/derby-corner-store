@@ -2,12 +2,12 @@
 const express = require('express')
 const app = express()
 const sequelize = require('./models').sequelize
+const routes = require('./routes')
 
 const port = 3000
 
-app.get('/', (req, res) => {
-    res.send('test response')
-})
+// Attach router
+app.use('/', routes)
 
 // Startup database and server.
 sequelize
