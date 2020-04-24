@@ -1,7 +1,7 @@
 'use strict'
 const express = require('express')
 const app = express()
-const sequelize = require('./models').sequelize
+const { sequelize, Item } = require('./models')
 const routes = require('./routes')
 const bodyParser = require('body-parser').json()
 
@@ -20,9 +20,26 @@ sequelize
         console.log('App: authenticated connection to database.')
         sequelize.sync({force: true}) // DROP TABLE IF EXISTS
             .then(() => {
-                // Start Express server
-                app.listen(port, () => {
-                    console.log(`App: server listening on port ${port}`)
+                    Item.bulkCreate([
+                        {
+                            upc: '859610005973',
+                            productMfg: 'Blue Buffalo',
+                            productName: 'Blue Wilderness Small Breed Adult Dog Food Chicken',
+                            quantityOnHand: 1,
+                            priceInCents: 2499
+                        },
+                        {
+                            upc: '818200918243',
+                            productMfg: 'Hills',
+                            productName: 'Science Diet Adult Dog Food Chicken Sensitive',
+                            quantityOnHand: 1,
+                            priceInCents: 3799
+                        }
+                    ]).then(() => {
+                            // Start Express server
+                            app.listen(port, () => {
+                            console.log(`App: server listening on port ${port}`)
+                        })
                 })
             })
             .catch((err) => {
