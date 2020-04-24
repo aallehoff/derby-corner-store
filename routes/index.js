@@ -23,15 +23,19 @@ router.get('/client', (req, res) => {
 /* 
     Create, Read, Update, Delete (CRUD) Routes
 */
+// READ all items
 router.get('/stock/all', (req, res) => {
     placeholderResponse(req, res)
 })
 
+// CREATE new item
+router.post('/stock/item', (req, res) => {
+    placeholderResponse(req, res)
+})
+
+// READ, UPDATE, DELETE specific item
 router.route('/stock/item/:upc')
     .get((req, res) => {
-        placeholderResponse(req, res)
-    })
-    .post((req, res) => {
         placeholderResponse(req, res)
     })
     .put((req, res) => {
