@@ -33,8 +33,18 @@ router.get('/stock/all', async (req, res) => {
 })
 
 // CREATE new item
-router.post('/stock/item', (req, res) => {
-    placeholderResponse(req, res)
+router.post('/stock/item', async (req, res) => {
+    await db.Item.create({
+        upc: req.body.upc,
+        productMfg: req.body.productMfg,
+        productName: req.body.productName,
+        quantityOnHand: req.body.quantityOnHand,
+        priceInCents: req.body.priceInCents
+    })
+        .then(() => {
+            res.status(200)
+                .end()
+        })
 })
 
 // READ, UPDATE, DELETE specific item
