@@ -68,10 +68,11 @@ router.route('/stock/item/:upc')
                 upc: req.params.upc
             }
         })
-            .then((item) => {
-                item.destroy()
-                res.status(202)
-                res.json(item)
+            .then(async (item) => {
+                await item.destroy()
+                    .then(() => {
+                        res.status(200).end()
+                    })
             })
     })
 
