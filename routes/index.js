@@ -13,30 +13,31 @@ function placeholderResponse(req, res) {
 /* 
     Create, Read, Update, Delete (CRUD) Routes
 */
-// READ all items
-router.get('/stock/all', async (req, res) => {
-    await db.Item.findAll()
-        .then((data) => {
-            res.json(data)
-        })
-})
 
-// CREATE new item
-router.post('/stock/item', async (req, res) => {
-    await db.Item.create({
-        upc: req.body.upc,
-        productMfg: req.body.productMfg,
-        productName: req.body.productName,
-        quantityOnHand: req.body.quantityOnHand,
-        priceInCents: req.body.priceInCents
+router.route('/stock')
+    // READ all items
+    .get(async (req, res) => {
+        await db.Item.findAll()
+            .then((data) => {
+                res.json(data)
+            })
     })
-        .then(() => {
-            res.status(200).end()
+    // CREATE new item
+    .post(async (req, res) => {
+        await db.Item.create({
+            upc: req.body.upc,
+            productMfg: req.body.productMfg,
+            productName: req.body.productName,
+            quantityOnHand: req.body.quantityOnHand,
+            priceInCents: req.body.priceInCents
         })
-})
+            .then(() => {
+                res.status(200).end()
+            })
+    })
 
-// READ, UPDATE, DELETE specific item
-router.route('/stock/item/:upc')
+router.route('/stock/:upc')
+    // READ single item
     .get(async (req, res) => {
         await db.Item.findOne({
             where: { upc: req.params.upc }
@@ -45,6 +46,7 @@ router.route('/stock/item/:upc')
             res.json(data)
         })
     })
+    // UPDATE single item
     .put(async (req, res) => {
         await db.Item.findOne({
             where: { upc: req.params.upc }
@@ -62,6 +64,7 @@ router.route('/stock/item/:upc')
             })
         })
     })
+    // DELETE single item
     .delete(async (req, res) => {
         await db.Item.findOne({
             where: { upc: req.params.upc }
