@@ -52,8 +52,17 @@ router.route('/stock/item/:upc')
     .put((req, res) => {
         placeholderResponse(req, res)
     })
-    .delete((req, res) => {
-        placeholderResponse(req, res)
+    .delete(async (req, res) => {
+        await db.Item.findOne({
+            where: {
+                upc: req.params.upc
+            }
+        })
+            .then((item) => {
+                item.destroy()
+                res.status(202)
+                res.json(item)
+            })
     })
 
 module.exports = router
