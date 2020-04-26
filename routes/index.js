@@ -42,8 +42,7 @@ router.post('/stock/item', async (req, res) => {
         priceInCents: req.body.priceInCents
     })
         .then(() => {
-            res.status(200)
-                .end()
+            res.status(200).end()
         })
 })
 
@@ -51,9 +50,7 @@ router.post('/stock/item', async (req, res) => {
 router.route('/stock/item/:upc')
     .get(async (req, res) => {
         await db.Item.findOne({
-            where: {
-                upc: req.params.upc
-            }
+            where: { upc: req.params.upc }
         })
         .then((data) => {
             res.json(data)
@@ -64,9 +61,7 @@ router.route('/stock/item/:upc')
     })
     .delete(async (req, res) => {
         await db.Item.findOne({
-            where: {
-                upc: req.params.upc
-            }
+            where: { upc: req.params.upc }
         })
             .then(async (item) => {
                 await item.destroy()
