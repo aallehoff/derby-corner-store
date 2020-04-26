@@ -34,13 +34,7 @@ router.get('/stock/all', async (req, res) => {
 
 // CREATE new item
 router.post('/stock/item', async (req, res) => {
-    await db.Item.create({
-        upc: req.body.upc,
-        productMfg: req.body.productMfg,
-        productName: req.body.productName,
-        quantityOnHand: req.body.quantityOnHand,
-        priceInCents: req.body.priceInCents
-    })
+    await db.Item.create()
         .then(() => {
             res.status(200).end()
         })
@@ -56,8 +50,22 @@ router.route('/stock/item/:upc')
             res.json(data)
         })
     })
-    .put((req, res) => {
-        placeholderResponse(req, res)
+    .put(async (req, res) => {
+        await db.Item.findOne({
+            where: { upc: req.params.upc }
+        })
+        .then(async (item) => {
+            await item.update({
+                upc: req.body.upc,
+                productMfg: req.body.productMfg,
+                productName: req.body.productName,
+                quantityOnHand: req.body.quantityOnHand,
+                priceInCents: req.body.priceInCents
+            })
+            .then(() => {
+                res.status(200).end()
+            })
+        })
     })
     .delete(async (req, res) => {
         await db.Item.findOne({
