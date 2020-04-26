@@ -12,6 +12,9 @@ app.use(bodyParser)
 // Attach router
 app.use('/', routes)
 
+// Serve static files
+app.use(express.static('public'))
+
 // Startup database and server.
 sequelize
     // Test connection to database

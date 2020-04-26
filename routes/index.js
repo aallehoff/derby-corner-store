@@ -11,17 +11,6 @@ function placeholderResponse(req, res) {
 }
 
 /* 
-    Client Routes
-*/
-router.get('/', (req, res) => {
-    res.redirect('/client')
-})
-router.get('/client', (req, res) => {
-    res.send('Client goes here.') //todo
-})
-
-
-/* 
     Create, Read, Update, Delete (CRUD) Routes
 */
 // READ all items
