@@ -9,7 +9,24 @@
     <link rel="stylesheet" type="text/css" href="css/style">
 </head>
 <body>
-    
+    <div id="client">
+        <h1>Company Name</h1>
+        <h2>Inventory System</h2>
+
+        <div v-if="results && showResults">
+            <table>
+                <tr>
+                    <td>UPC</td>
+                    <td>Manufacturer</td>
+                    <td>Name</td>
+                    <td>Quantity</td>
+                    <td>Price</td>
+                    <td>Actions</td>
+                </tr>
+                <item-listing v-for='result in results' v-bind:item="result"></item-listing>
+            </table>
+        </div>
+    </div>
     <script src="js/vue.js"></script>
     <script src="js/client.js"></script>
 </body>
