@@ -23,7 +23,7 @@
                     <td>Price</td>
                     <td>Actions</td>
                 </tr>
-                <item-listing v-for='result in results' v-bind:item="result"></item-listing>
+                <item-listing v-on:refresh-results="readAll" v-for='result in results' v-bind:item="result"></item-listing>
             </table>
         </div>
     </div>

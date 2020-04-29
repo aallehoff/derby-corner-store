@@ -41,6 +41,9 @@ Vue.component('item-listing', {
                 },
                 body: JSON.stringify(item)
             })
+            .then(() => {
+                this.$emit('refresh-results')
+            })
         },
         deleteItem: async function (item) {
             const target = '/stock/' + item.upc
@@ -51,6 +54,9 @@ Vue.component('item-listing', {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(item)
+            })
+            .then(() => {
+                this.$emit('refresh-results')
             })
         }
     },
