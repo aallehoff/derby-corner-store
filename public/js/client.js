@@ -40,26 +40,17 @@ Vue.component('item-listing', {
     },
     template: /*html*/`
         <div>
-            <tr v-if="!editMode">
-                <td>{{ item.upc }}</td>
-                <td>{{ item.productMfg }}</td>
-                <td>{{ item.productName }}</td>
-                <td>{{ item.quantityOnHand }}</td>
-                <td>{{ '$' + item.priceInCents / 10 }}</td>
+            <tr>
+                <td><input v-model="item.upc" v-bind:disabled="!editMode"></td>
+                <td><input v-model="item.productMfg" v-bind:disabled="!editMode"></td>
+                <td><input v-model="item.productName" v-bind:disabled="!editMode"></td>
+                <td><input v-model="item.quantityOnHand" v-bind:disabled="!editMode"></td>
+                <td><input v-model="item.priceInCents" v-bind:disabled="!editMode"></td>
                 <td>
-                    <button v-on:click="editMode = true">Edit</button>
-                    <button>Delete</button>
-                </td>
-            </tr>
-            <tr v-if="editMode">
-                <td><input v-model="item.upc"></td>
-                <td><input v-model="item.productMfg"></td>
-                <td><input v-model="item.productName"></td>
-                <td><input v-model="item.quantityOnHand"></td>
-                <td><input v-model="item.priceInCents"></td>
-                <td>
-                    <button v-on:click="editMode = false">Cancel</button>
-                    <button v-on:click="submitEdit(item); editMode = false">Submit</button>
+                    <button v-on:click="editMode = !editMode">{{ editMode ? 'Cancel' : 'Edit' }}</button>
+                    <button v-on:click="editMode ? submitEdit(item) : deleteItem(item); editMode = false">
+                        {{ editMode ? 'Submit' : 'Delete' }}
+                    </button>
                 </td>
             </tr>
         </div>
