@@ -18,15 +18,8 @@ const client = new Vue({
                     })
         }
     },
-    mounted: /*readAll()*/ async function () {
-        await fetch('/stock', { mode: 'same-origin' })
-                .then((response) => {
-                    return response.json()
-                })
-                .then((response) => {
-                    console.log(response)
-                    client.results = response
-                })
+    mounted: function () {
+        this.readAll()
     }
 })
 
