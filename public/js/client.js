@@ -26,11 +26,22 @@ Vue.component('item-listing', {
         }
     },
     methods: {
-        submitEdit: (item) => {
+        submitEdit: async (item) => {
             const target = '/stock/' + item.upc
-            fetch(target, {
+            await fetch(target, {
                 mode: 'same-origin',
                 method: 'PUT',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(item)
+            })
+        },
+        deleteItem: async (item) => {
+            const target = '/stock/' + item.upc
+            await fetch(target, {
+                mode: 'same-origin',
+                method: 'DELETE',
                 headers: {
                     'Content-Type': 'application/json'
                 },
