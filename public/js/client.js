@@ -6,7 +6,19 @@ const client = new Vue({
         results: '',
         showResults: true
     },
-    mounted: async () => {
+    methods: {
+        readAll: async function () {
+            await fetch('/stock', { mode: 'same-origin' })
+                    .then((response) => {
+                        return response.json()
+                    })
+                    .then((response) => {
+                        console.log(response)
+                        client.results = response
+                    })
+        }
+    },
+    mounted: /*readAll()*/ async function () {
         await fetch('/stock', { mode: 'same-origin' })
                 .then((response) => {
                     return response.json()
@@ -26,7 +38,7 @@ Vue.component('item-listing', {
         }
     },
     methods: {
-        submitEdit: async (item) => {
+        submitEdit: async function (item) {
             const target = '/stock/' + item.upc
             await fetch(target, {
                 mode: 'same-origin',
@@ -37,7 +49,7 @@ Vue.component('item-listing', {
                 body: JSON.stringify(item)
             })
         },
-        deleteItem: async (item) => {
+        deleteItem: async function (item) {
             const target = '/stock/' + item.upc
             await fetch(target, {
                 mode: 'same-origin',
