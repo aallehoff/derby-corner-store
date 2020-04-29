@@ -38,7 +38,7 @@ Vue.component('item-listing', {
             })
         }
     },
-    template: `
+    template: /*html*/`
         <div>
             <tr v-if="!editMode">
                 <td>{{ item.upc }}</td>
