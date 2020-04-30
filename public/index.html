@@ -18,8 +18,17 @@
             <button v-on:click="showCreationDialog = true">New Item</button>
         </div>
 
-        <div v-if="showCreationDialog">
+        <div id="newItemDialog" v-if="showCreationDialog">
+            <h3>New Item</h3>
             <table>
+                <tr>
+                    <td>UPC</td>
+                    <td>Manufacturer</td>
+                    <td>Name</td>
+                    <td>Quantity</td>
+                    <td>Price</td>
+                    <td>Actions</td>
+                </tr>
                 <tr>
                     <td><input v-model="newItem.upc"></td>
                     <td><input v-model="newItem.productMfg"></td>
