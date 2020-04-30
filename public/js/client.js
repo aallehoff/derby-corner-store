@@ -3,10 +3,28 @@
 const client = new Vue({
     el: '#client',
     data: {
+        newItem: {},
         results: '',
+        showCreationDialog: false,
         showResults: true
     },
     methods: {
+        createItem: async function () {
+            console.log(this.newItem)
+            await fetch('/stock', {
+                mode: 'same-origin',
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(this.newItem)
+            })
+            .then(() => {
+                this.newItem = {} // clear input
+                this.showCreationDialog = false
+                this.readAll()
+            })
+        },
         readAll: async function () {
             await fetch('/stock', { mode: 'same-origin' })
                     .then((response) => {

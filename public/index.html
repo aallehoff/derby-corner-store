@@ -13,6 +13,27 @@
         <h1>Company Name</h1>
         <h2>Inventory System</h2>
 
+        <div id="actionBar">
+            <button v-on:click="readAll">Refresh</button>
+            <button v-on:click="showCreationDialog = true">New Item</button>
+        </div>
+
+        <div v-if="showCreationDialog">
+            <table>
+                <tr>
+                    <td><input v-model="newItem.upc"></td>
+                    <td><input v-model="newItem.productMfg"></td>
+                    <td><input v-model="newItem.productName"></td>
+                    <td><input v-model="newItem.quantityOnHand"></td>
+                    <td><input v-model="newItem.priceInCents"></td>
+                    <td>
+                        <button v-on:click="createItem">Create</button>
+                        <button v-on:click="newItem = {}; showCreationDialog = false">Cancel</button>
+                    </td>
+                </tr>
+            </table>
+        </div>
+
         <div v-if="results && showResults">
             <table>
                 <tr>
