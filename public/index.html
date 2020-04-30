@@ -30,11 +30,11 @@
                     <td>Actions</td>
                 </tr>
                 <tr>
-                    <td><input v-model="newItem.upc"></td>
-                    <td><input v-model="newItem.productMfg"></td>
-                    <td><input v-model="newItem.productName"></td>
-                    <td><input v-model="newItem.quantityOnHand"></td>
-                    <td><input v-model="newItem.priceInCents"></td>
+                    <td><input v-model="newItem.upc" size="12"></td>
+                    <td><input v-model="newItem.productMfg" size="20"></td>
+                    <td><input v-model="newItem.productName" size="50"></td>
+                    <td><input v-model="newItem.quantityOnHand" size="5"></td>
+                    <td><input v-model="newItem.priceInCents" size="12"></td>
                     <td>
                         <button v-on:click="createItem">Create</button>
                         <button v-on:click="newItem = {}; showCreationDialog = false">Cancel</button>
