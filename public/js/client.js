@@ -79,20 +79,18 @@ Vue.component('item-listing', {
         }
     },
     template: /*html*/`
-        <div>
-            <tr>
-                <td><input v-model="item.upc" v-bind:disabled="!editMode"></td>
-                <td><input v-model="item.productMfg" v-bind:disabled="!editMode"></td>
-                <td><input v-model="item.productName" v-bind:disabled="!editMode"></td>
-                <td><input v-model="item.quantityOnHand" v-bind:disabled="!editMode"></td>
-                <td><input v-model="item.priceInCents" v-bind:disabled="!editMode"></td>
-                <td>
-                    <button v-on:click="editMode = !editMode">{{ editMode ? 'Cancel' : 'Edit' }}</button>
-                    <button v-on:click="editMode ? submitEdit(item) : deleteItem(item); editMode = false">
-                        {{ editMode ? 'Submit' : 'Delete' }}
-                    </button>
-                </td>
-            </tr>
-        </div>
+        <tr>
+            <td><input v-model="item.upc" v-bind:disabled="!editMode"></td>
+            <td><input v-model="item.productMfg" v-bind:disabled="!editMode"></td>
+            <td><input v-model="item.productName" v-bind:disabled="!editMode"></td>
+            <td><input v-model="item.quantityOnHand" v-bind:disabled="!editMode"></td>
+            <td><input v-model="item.priceInCents" v-bind:disabled="!editMode"></td>
+            <td>
+                <button v-on:click="editMode = !editMode">{{ editMode ? 'Cancel' : 'Edit' }}</button>
+                <button v-on:click="editMode ? submitEdit(item) : deleteItem(item); editMode = false">
+                    {{ editMode ? 'Submit' : 'Delete' }}
+                </button>
+            </td>
+        </tr>
     `
 })

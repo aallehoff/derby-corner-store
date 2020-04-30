@@ -34,7 +34,7 @@
             </table>
         </div>
 
-        <div v-if="results && showResults">
+        <div id="resultsDisplay" v-if="results && showResults">
             <table>
                 <tr>
                     <td>UPC</td>
@@ -44,7 +44,9 @@
                     <td>Price</td>
                     <td>Actions</td>
                 </tr>
-                <item-listing v-on:refresh-results="readAll" v-for='result in results' v-bind:item="result"></item-listing>
+                <template>
+                    <item-listing v-on:refresh-results="readAll" v-for='result in results' v-bind:item="result"></item-listing>
+                </template>
             </table>
         </div>
     </div>
