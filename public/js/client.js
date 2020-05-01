@@ -35,6 +35,57 @@ const client = new Vue({
                         console.log(response)
                         client.results = response
                     })
+        },
+        validateItem: function (item) {
+            try {
+                this.validateUPC(item.upc)
+            } catch (error) {
+                
+            }
+        },
+        validateUPC: function (upc) {
+            const re = /\d{12}/u // Exactly 12 digits, unicode.
+
+            if (re.test(upc)) {
+                // Intialize checks.
+                let actualCheck = upc[11]
+                let expectedCheck
+
+                // Create buffers.
+                let sumEvenDigits = 0
+                let sumOddDigits = 0
+
+                // Populate buffers.
+                for (let i = 0; i < 11; i++) {
+                    // Walk through UPC excluding the final (check) digit.
+                    const n = Number(upc[i])
+                    console.log(n)
+                    if ( i % 2 ) {
+                        // Odd digits result in a truthy (non-zero) remainder.
+                        sumOddDigits += n
+                    } else {
+                        // Even digits result in a falsy (zero) remiander.
+                        sumEvenDigits += n
+                    }
+                }
+
+                // Calculate expected check.
+                const remainder = ((sumEvenDigits * 3) + sumOddDigits) % 10
+                if ( remainder ) {
+                    expectedCheck = 10 - remainder
+                } else {
+                    expectedCheck = 0
+                }
+
+                // Compare actual to expected check.
+                if (actualCheck == expectedCheck) {
+                    console.log(`Check digit validation success.`)
+                } else {
+                    console.log(`Invalid check digit: expected ${expectedCheck}, got ${actualCheck}.`)
+                }
+            } else {
+                console.log('Must be exactly 12 digits')
+            }
         }
     },
     mounted: function () {
