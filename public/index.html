@@ -43,7 +43,14 @@
             </table>
         </div>
 
+        <div id="errorsDisplay" v-if="errors">
+            <ul>
+                <li v-for="error in errors">{{ error }}</li>
+            </ul>
+        </div>
+
         <div id="resultsDisplay" v-if="results && showResults">
+            <h3>Results</h3>
             <table>
                 <tr>
                     <td>UPC</td>
