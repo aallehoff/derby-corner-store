@@ -3,6 +3,7 @@
 const client = new Vue({
     el: '#client',
     data: {
+        errors: [],
         newItem: {},
         results: '',
         showCreationDialog: false,
