@@ -62,7 +62,7 @@
                     <td>Actions</td>
                 </tr>
                 <template>
-                    <item-listing v-on:refresh-results="readAll" v-for='result in results' v-bind:item="result"></item-listing>
+                    <item-listing v-on:refresh-results="readAll" v-for='result in results' v-bind:item="result" v-bind:key="result.upc"></item-listing>
                 </template>
             </table>
         </div>
