@@ -170,16 +170,22 @@ Vue.component('item-listing', {
     },
     template: /*html*/`
         <tr>
-            <td><input v-model="item.upc" v-bind:disabled="!editMode"></td>
-            <td><input v-model="item.productMfg" v-bind:disabled="!editMode"></td>
-            <td><input v-model="item.productName" v-bind:disabled="!editMode"></td>
-            <td><input v-model="item.quantityOnHand" v-bind:disabled="!editMode"></td>
-            <td><input v-model="item.priceInCents" v-bind:disabled="!editMode"></td>
+            <td><input v-model="item.upc" size="12" v-bind:disabled="!editMode"></td>
+            <td><input v-model="item.productMfg" size="20" v-bind:disabled="!editMode"></td>
+            <td><input v-model="item.productName" size="50" v-bind:disabled="!editMode"></td>
+            <td><input v-model="item.quantityOnHand" size="5" v-bind:disabled="!editMode"></td>
+            <td><input v-model="item.priceInCents" size="12" v-bind:disabled="!editMode"></td>
             <td>
-                <button v-on:click="editMode = !editMode">{{ editMode ? 'Cancel' : 'Edit' }}</button>
-                <button v-on:click="editMode ? submitEdit(item) : deleteItem(item); editMode = false">
-                    {{ editMode ? 'Submit' : 'Delete' }}
-                </button>
+                <button
+                class="btn"
+                v-bind:class="{ 'btn-info': !editMode, 'btn-secondary': editMode }"
+                v-on:click="editMode = !editMode" 
+                >{{ editMode ? 'Cancel' : 'Edit' }}</button>
+                <button
+                class="btn"
+                v-bind:class="{ 'btn-primary': editMode, 'btn-danger': !editMode }"
+                v-on:click="editMode ? submitEdit(item) : deleteItem(item); editMode = false"
+                >{{ editMode ? 'Submit' : 'Delete' }}</button>
             </td>
         </tr>
     `
