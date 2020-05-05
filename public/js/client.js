@@ -62,8 +62,10 @@ const client = new Vue({
             ]
             for (const r of routine) {
                 try {
+                    // Assemble function calls with arguments
                     r.run(r.on, r.fieldName)
                 } catch (err) {
+                    // Accumulate errors
                     this.currentErrors.push(err)
                 }
             }
@@ -123,6 +125,7 @@ const client = new Vue({
         }
     },
     mounted: function () {
+        // This function is called by Vue once the view is ready.
         this.readAll()
     }
 })
@@ -160,6 +163,7 @@ Vue.component('item-listing', {
                 body: JSON.stringify(item)
             })
             .then(() => {
+                // Signal parent that it's time to refresh the results.
                 this.$emit('refresh-results')
             })
         }
