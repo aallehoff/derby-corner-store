@@ -3,7 +3,7 @@
 const client = new Vue({
     el: '#client',
     data: {
-        errors: [],
+        currentErrors: [],
         newItem: {},
         results: '',
         showCreationDialog: false,
@@ -79,13 +79,16 @@ const client = new Vue({
 
                 // Compare actual to expected check.
                 if (actualCheck == expectedCheck) {
-                    console.log(`Check digit validation success.`)
+                    // valid UPC; no action needed
                 } else {
-                    console.log(`Invalid check digit: expected ${expectedCheck}, got ${actualCheck}.`)
+                    throw this.UpcInvalidError('Invalid check digit', expectedCheck, actualCheck)
                 }
             } else {
-                console.log('Must be exactly 12 digits')
+                throw this.UpcInvalidError('Invalid length', 12, upc.length)
             }
+        },
+        UpcInvalidError: function (msg, exp, act) {
+            return new Error(`UPC: ${msg}; expected ${exp}, got ${act}.`)
         }
     },
     mounted: function () {
