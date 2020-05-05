@@ -71,7 +71,7 @@ const client = new Vue({
             }
         },
         validateUPC: function (upc, fieldName) {
-            const re = /\d{12}/u // Exactly 12 digits, unicode.
+            const re = /^\d{12}$/u // Exactly 12 digits, unicode.
 
             if (re.test(upc)) {
                 // Intialize checks.
