@@ -12,19 +12,24 @@ const client = new Vue({
     methods: {
         createItem: async function () {
             console.log(this.newItem)
-            await fetch('/stock', {
-                mode: 'same-origin',
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(this.newItem)
-            })
-            .then(() => {
-                this.newItem = {} // clear input
-                this.showCreationDialog = false
-                this.readAll()
-            })
+            this.validateItem(this.newItem)
+            if (this.currentErrors.length > 0) {
+                // no errors, proceed
+            } else {
+                await fetch('/stock', {
+                    mode: 'same-origin',
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(this.newItem)
+                })
+                .then(() => {
+                    this.newItem = {} // clear input
+                    this.showCreationDialog = false
+                    this.readAll()
+                })
+            }
         },
         readAll: async function () {
             await fetch('/stock', { mode: 'same-origin' })
@@ -43,28 +48,29 @@ const client = new Vue({
             }
         },
         validateItem: function (item) {
+            this.currentErrors = [] // clear existing errors
             const routine = [
-                { run: this.validateUPC, on: item.upc },
-                { run: this.validateLength, on: item.productMfg },
-                { run: this.validateLength, on: item.productName },
-                { run: this.validateSign, on: item.quantityOnHand },
-                { run: this.validateSign, on: item.priceInCents }
+                { run: this.validateUPC, on: item.upc, fieldName: 'UPC' },
+                { run: this.validateLength, on: item.productMfg, fieldName: 'Manufacturer' },
+                { run: this.validateLength, on: item.productName, fieldName: 'Name' },
+                { run: this.validateSign, on: item.quantityOnHand, fieldName: 'Quantity' },
+                { run: this.validateSign, on: item.priceInCents, fieldName: 'Price' }
             ]
             for (const r of routine) {
                 try {
-                    r.run(r.on)
+                    r.run(r.on, r.fieldName)
                 } catch (err) {
                     this.currentErrors.push(err)
                 }
             }
         },
-        validateSign: function (field) {
+        validateSign: function (field, fieldName) {
             const num = Number(field)
             if ( num < 0 ) {
-                throw this.ValidationError('Field', 'Invalid sign', 'positive number', 'negative number')
+                throw this.ValidationError(fieldName, 'Invalid sign', 'positive number', num)
             }
         },
-        validateUPC: function (upc) {
+        validateUPC: function (upc, fieldName) {
             const re = /\d{12}/u // Exactly 12 digits, unicode.
 
             if (re.test(upc)) {
@@ -102,10 +108,10 @@ const client = new Vue({
                 if (actualCheck == expectedCheck) {
                     // valid UPC; no action needed
                 } else {
-                    throw this.ValidationError('UPC', 'Invalid check digit', expectedCheck, actualCheck)
+                    throw this.ValidationError(fieldName, 'Invalid check digit', expectedCheck, actualCheck)
                 }
             } else {
-                throw this.ValidationError('UPC', 'Invalid length', 12, upc.length)
+                throw this.ValidationError(fieldName, 'Invalid length', 12, upc.length)
             }
         },
         ValidationError: function (loc, msg, exp, act) {
