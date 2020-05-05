@@ -41,10 +41,14 @@ const client = new Vue({
                         client.results = response
                     })
         },
-        validateLength: function (field) {
-            const len = field.length
-            if (len > 255) {
-                throw this.ValidationError('Field', 'Invalid length', 'less than 256', field.length)
+        validateLength: function (field, fieldName) {
+            if (!field) {
+                throw this.ValidationError(fieldName, 'Must not be empty', 'more than 0 characters', '0')
+            } else {
+                const len = field.length
+                if (len > 255 || len < 1) {
+                    throw this.ValidationError(fieldName, 'Invalid length', 'less than 256 and more than 0', field.length)
+                }
             }
         },
         validateItem: function (item) {
