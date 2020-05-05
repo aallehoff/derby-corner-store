@@ -36,11 +36,32 @@ const client = new Vue({
                         client.results = response
                     })
         },
+        validateLength: function (field) {
+            const len = field.length
+            if (len > 255) {
+                throw this.ValidationError('Field', 'Invalid length', 'less than 256', field.length)
+            }
+        },
         validateItem: function (item) {
-            try {
-                this.validateUPC(item.upc)
-            } catch (error) {
-                
+            const routine = [
+                { run: this.validateUPC, on: item.upc },
+                { run: this.validateLength, on: item.productMfg },
+                { run: this.validateLength, on: item.productName },
+                { run: this.validateSign, on: item.quantityOnHand },
+                { run: this.validateSign, on: item.priceInCents }
+            ]
+            for (const r of routine) {
+                try {
+                    r.run(r.on)
+                } catch (err) {
+                    this.currentErrors.push(err)
+                }
+            }
+        },
+        validateSign: function (field) {
+            const num = Number(field)
+            if ( num < 0 ) {
+                throw this.ValidationError('Field', 'Invalid sign', 'positive number', 'negative number')
             }
         },
         validateUPC: function (upc) {
@@ -81,14 +102,14 @@ const client = new Vue({
                 if (actualCheck == expectedCheck) {
                     // valid UPC; no action needed
                 } else {
-                    throw this.UpcInvalidError('Invalid check digit', expectedCheck, actualCheck)
+                    throw this.ValidationError('UPC', 'Invalid check digit', expectedCheck, actualCheck)
                 }
             } else {
-                throw this.UpcInvalidError('Invalid length', 12, upc.length)
+                throw this.ValidationError('UPC', 'Invalid length', 12, upc.length)
             }
         },
-        UpcInvalidError: function (msg, exp, act) {
-            return new Error(`UPC: ${msg}; expected ${exp}, got ${act}.`)
+        ValidationError: function (loc, msg, exp, act) {
+            return new Error(`(${loc}) ${msg}; expected ${exp}, got ${act}.`)
         }
     },
     mounted: function () {
