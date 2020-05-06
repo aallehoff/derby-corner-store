@@ -23,4 +23,5 @@ Name | Type | Reason | Note
 7. Inside the terminal, run `npm install` . This will download required node.js modules to allow the project to run.
 8. Open the `.env.example` file. Change the defaults to fit your computer, if necessary.
 9. Rename the `.env.example` file to `.env`. Using the terminal, the command is `mv .env.example .env` .
+#### Run the Server
 10. Run `npm start` . This starts the server. You may now navigate to the location displayed in your console to see the project.
