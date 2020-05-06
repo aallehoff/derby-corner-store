@@ -34,7 +34,7 @@
                     <td><input v-model="newItem.productMfg" size="20"></td>
                     <td><input v-model="newItem.productName" size="50"></td>
                     <td><input v-model="newItem.quantityOnHand" size="5"></td>
-                    <td><input v-model="newItem.priceInCents" size="12"></td>
+                    <td><input v-model="newItem.price" size="12"></td>
                     <td>
                         <button v-on:click="createItem" class="btn btn-primary">Create</button>
                         <button v-on:click="newItem = {}; showCreationDialog = false" class="btn btn-danger">Cancel</button>

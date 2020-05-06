@@ -58,7 +58,7 @@ const client = new Vue({
                 { run: this.validateLength, on: item.productMfg, fieldName: 'Manufacturer' },
                 { run: this.validateLength, on: item.productName, fieldName: 'Name' },
                 { run: this.validateSign, on: item.quantityOnHand, fieldName: 'Quantity' },
-                { run: this.validateSign, on: item.priceInCents, fieldName: 'Price' }
+                { run: this.validateSign, on: item.price, fieldName: 'Price' }
             ]
             for (const r of routine) {
                 try {
@@ -174,7 +174,7 @@ Vue.component('item-listing', {
             <td><input v-model="item.productMfg" size="20" v-bind:disabled="!editMode"></td>
             <td><input v-model="item.productName" size="50" v-bind:disabled="!editMode"></td>
             <td><input v-model="item.quantityOnHand" size="5" v-bind:disabled="!editMode"></td>
-            <td><input v-model="item.priceInCents" size="12" v-bind:disabled="!editMode"></td>
+            <td><input v-model="item.price" size="12" v-bind:disabled="!editMode"></td>
             <td>
                 <button
                 class="btn"

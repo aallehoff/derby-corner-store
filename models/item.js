@@ -28,11 +28,11 @@ module.exports = (sequelize, Sequelize) => {
         min: 0
       }
     },
-    priceInCents: {
-      type: Sequelize.INTEGER,
+    price: {
+      type: Sequelize.DECIMAL(10,2),
       allowNull: false,
       validate: {
-        isInt: true,
+        isDecimal: true,
         min: 0
       }
     }

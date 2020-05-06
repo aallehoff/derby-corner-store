@@ -29,7 +29,7 @@ router.route('/stock')
             productMfg: req.body.productMfg,
             productName: req.body.productName,
             quantityOnHand: req.body.quantityOnHand,
-            priceInCents: req.body.priceInCents
+            price: req.body.price
         })
             .then(() => {
                 res.status(200).end()
@@ -57,7 +57,7 @@ router.route('/stock/:upc')
                 productMfg: req.body.productMfg,
                 productName: req.body.productName,
                 quantityOnHand: req.body.quantityOnHand,
-                priceInCents: req.body.priceInCents
+                price: req.body.price
             })
             .then(() => {
                 res.status(200).end()

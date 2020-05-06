@@ -29,14 +29,14 @@ sequelize
                             productMfg: 'Blue Buffalo',
                             productName: 'Blue Wilderness Small Breed Adult Dog Food Chicken',
                             quantityOnHand: 1,
-                            priceInCents: 2499
+                            price: 24.99
                         },
                         {
                             upc: '818200918243',
                             productMfg: 'Hills',
                             productName: 'Science Diet Adult Dog Food Chicken Sensitive',
                             quantityOnHand: 1,
-                            priceInCents: 3799
+                            price: 37.99
                         }
                     ]).then(() => {
                             // Start Express server
