@@ -15,7 +15,7 @@ if (dotenv.error) {
 const port = process.env.APP_PORT
 
 /* 
-    MIDDLEWARE
+    Middleware
 */
 
 app.use(bodyParser)
@@ -26,18 +26,29 @@ app.use('/', routes)
 // Serve static files.
 app.use(express.static('public'))
 
+// Fallback route.
+app.use((req, res) => {
+    res.status(404).send('File not find, sorry!')
+})
+
 /* 
-    STARTUP SEQUENCE
+    Startup Sequence
+
+    1.) Test connection to database
+    2.) Forcibly(!) sync database
+    3.) Load seed data into database
+    4.) Start web server
 */
 
 // Startup database and server.
 sequelize
-    // Test connection to database
-    .authenticate()
+    .authenticate() // Test connection to database
     .then(() => {
+        // Forcibly(!) sync database
         console.log('App: authenticated connection to database.')
         sequelize.sync({force: true}) // DROP TABLE IF EXISTS
             .then(() => {
+                    // Load seed data into database
                     Item.bulkCreate([
                         {
                             upc: '859610005973',
@@ -54,7 +65,7 @@ sequelize
                             price: 37.99
                         }
                     ]).then(() => {
-                            // Start Express server
+                            // Start web server
                             app.listen(port, () => {
                             console.log(`App: server running at http://localhost:${port}/`)
                         })
