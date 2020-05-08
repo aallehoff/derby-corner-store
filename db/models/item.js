@@ -14,11 +14,17 @@ module.exports = (sequelize, Sequelize) => {
     },
     productMfg: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        len: [0, 255]
+      }
     },
     productName: {
       type: Sequelize.STRING,
-      allowNull: false
+      allowNull: false,
+      validate: {
+        len: [0, 255]
+      }
     },
     quantityOnHand: {
       type: Sequelize.INTEGER,
