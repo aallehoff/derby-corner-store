@@ -1,4 +1,5 @@
 'use strict'
+
 const express = require('express')
 const router = express.Router()
 const db = require('../db')
@@ -9,6 +10,24 @@ const db = require('../db')
 //     Body:
 //     ${JSON.stringify(req.body)}`)
 // }
+
+function catcher (req, res) {
+    return (err) => {
+        // Is the error produced by Sequelize?
+        if (err.errors) {
+            // If so, accumulate into a list and send with 400.
+            const listOfErrors = []
+            for (let e of err.errors) {
+                listOfErrors.push(`(${e.path}) ${e.type}: ${e.message}`)
+            }
+            res.status(400).send(listOfErrors)
+        } else {
+            // If not, end with 500.
+            console.error(err)
+            res.status(500).end()
+        }
+    }
+}
 
 /* 
     Create, Read, Update, Delete (CRUD) Routes
@@ -21,6 +40,7 @@ router.route('/stock')
             .then((data) => {
                 res.json(data)
             })
+            .catch(catcher(req, res))
     })
     // CREATE new item
     .post(async (req, res) => {
@@ -34,6 +54,7 @@ router.route('/stock')
             .then(() => {
                 res.status(200).end()
             })
+            .catch(catcher(req, res))
     })
 
 router.route('/stock/:upc')
@@ -45,6 +66,7 @@ router.route('/stock/:upc')
         .then((data) => {
             res.json(data)
         })
+        .catch(catcher(req, res))
     })
     // UPDATE single item
     .put(async (req, res) => {
@@ -62,7 +84,9 @@ router.route('/stock/:upc')
             .then(() => {
                 res.status(200).end()
             })
+            .catch(catcher(req, res))
         })
+        .catch(catcher(req, res))
     })
     // DELETE single item
     .delete(async (req, res) => {
@@ -74,7 +98,13 @@ router.route('/stock/:upc')
                     .then(() => {
                         res.status(200).end()
                     })
+                    .catch(catcher(req, res))
             })
+            .catch(catcher(req, res))
     })
+
+/* 
+    Exports
+*/
 
 module.exports = router
