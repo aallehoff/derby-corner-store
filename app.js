@@ -1,19 +1,34 @@
 'use strict'
+const dotenv = require('dotenv').config()
 const express = require('express')
 const app = express()
-const { sequelize, Item } = require('./models')
+const { sequelize, Item } = require('./db')
 const routes = require('./routes')
 const bodyParser = require('body-parser').json()
 
-const port = 3000
+// Break early if there is an error loading dotenv.
+if (dotenv.error) {
+    throw dotenv.error
+    console.error("App: error loading .env file.")
+}
+
+const port = process.env.APP_PORT
+
+/* 
+    MIDDLEWARE
+*/
 
 app.use(bodyParser)
 
-// Attach router
+// Attach router.
 app.use('/', routes)
 
-// Serve static files
+// Serve static files.
 app.use(express.static('public'))
+
+/* 
+    STARTUP SEQUENCE
+*/
 
 // Startup database and server.
 sequelize
@@ -41,7 +56,7 @@ sequelize
                     ]).then(() => {
                             // Start Express server
                             app.listen(port, () => {
-                            console.log(`App: server listening on port ${port}`)
+                            console.log(`App: server running at http://localhost:${port}/`)
                         })
                 })
             })

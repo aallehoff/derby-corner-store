@@ -1,7 +1,7 @@
 'use strict'
 const express = require('express')
 const router = express.Router()
-const db = require('../models')
+const db = require('../db')
 
 function placeholderResponse(req, res) {
     console.dir(req.body)
