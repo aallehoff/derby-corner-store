@@ -3,12 +3,12 @@ const express = require('express')
 const router = express.Router()
 const db = require('../db')
 
-function placeholderResponse(req, res) {
-    console.dir(req.body)
-    res.send(`Received ${req.method} to ${req.route.path}.
-    Body:
-    ${JSON.stringify(req.body)}`)
-}
+// function placeholderResponse(req, res) {
+//     console.dir(req.body)
+//     res.send(`Received ${req.method} to ${req.route.path}.
+//     Body:
+//     ${JSON.stringify(req.body)}`)
+// }
 
 /* 
     Create, Read, Update, Delete (CRUD) Routes
