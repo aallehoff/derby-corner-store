@@ -1,5 +1,53 @@
-@media (max-width: 1200px) {
+/* 
+    Elements
+*/
+
+html {
+    font-size: 14px;
+}
+
+h1 {
+    font-size: 2.5rem;
+}
+
+h2 {
+    font-size: 2rem;
+}
+
+h3 {
+    font-size: 1.5rem;
+}
+
+/* Tables */
+td {
+    display: block;
+}
+
+td:last-child {
+    margin-bottom: 1rem;
+}
+
+
+/* 
+    Classes
+*/
+
+
+/* 
+    IDs
+*/
+
+#actionBar, #newItemDialog, #errorsDisplay, #resultsDisplay {
+    margin-bottom: 2rem;
+}
+
+
+/* 
+    Media Queries
+*/
+
+@media (min-width: 1200px) {
     td {
-        display: block;
+        display: table-cell;
     }
 }
