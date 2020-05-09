@@ -2,6 +2,7 @@
 
 Vue.component('item-listing', {
     props: ['item'],
+    mixins: [validation],
     data: function() {
         return {
             editMode: false
@@ -9,18 +10,32 @@ Vue.component('item-listing', {
     },
     methods: {
         submitEdit: async function (item) {
-            const target = '/stock/' + item.upc
-            await fetch(target, {
-                mode: 'same-origin',
-                method: 'PUT',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(item)
-            })
-            .then(() => {
-                this.$emit('refresh-results')
-            })
+            this.validateItem(item)
+            if (client.currentErrors.length != 0) {
+                // errors present on client, do nothing
+            } else {
+                const target = '/stock/' + item.upc
+                await fetch(target, {
+                    mode: 'same-origin',
+                    method: 'PUT',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(item)
+                })
+                .then((response) => {
+                    if (response.ok) {
+                        this.$emit('refresh-results')
+                    } else {
+                        response.json().then((listOfErrors) => {
+                            client.currentErrors = listOfErrors
+                        })
+                    }
+                })
+                .catch(() => {
+                    client.currentErrors = ["Couldn't connect to the server. Try again later."]
+                })
+            }
         },
         deleteItem: async function (item) {
             const target = '/stock/' + item.upc
@@ -32,9 +47,17 @@ Vue.component('item-listing', {
                 },
                 body: JSON.stringify(item)
             })
-            .then(() => {
-                // Signal parent that it's time to refresh the results.
-                this.$emit('refresh-results')
+            .then((response) => {
+                if (response.ok) {
+                    this.$emit('refresh-results')
+                } else {
+                    response.json().then((listOfErrors) => {
+                        client.currentErrors = listOfErrors
+                    })
+                }
+            })
+            .catch(() => {
+                client.currentErrors = ["Couldn't connect to the server. Try again later."]
             })
         }
     },
