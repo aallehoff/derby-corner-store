@@ -27,6 +27,9 @@ td:last-child {
     margin-bottom: 1rem;
 }
 
+tr.desktop {
+    display: none;
+}
 
 /* 
     Classes
@@ -47,7 +50,16 @@ td:last-child {
 */
 
 @media (min-width: 1200px) {
+    /* Elements */
     td {
         display: table-cell;
     }
+
+    tr.desktop {
+        display: table-row;
+    }
+
+    /* Classes */
+
+    /* IDs */
 }
