@@ -52,7 +52,7 @@ tr.desktop {
     Media Queries
 */
 
-@media (min-width: 1200px) {
+@media (min-width: 940px) {
     /* Elements */
     td {
         display: table-cell;
