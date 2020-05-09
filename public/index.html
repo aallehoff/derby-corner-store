@@ -24,18 +24,18 @@
                 <tr class="desktop">
                     <td>UPC</td>
                     <td>Manufacturer</td>
-                    <td>Name</td>
+                    <td>Description</td>
                     <td>Quantity</td>
                     <td>Price</td>
                     <td>Actions</td>
                 </tr>
                 <tr>
-                    <td><input v-model="newItem.upc" size="12" class="form-control" maxlength="12"></td>
-                    <td><input v-model="newItem.productMfg" size="12" class="form-control" maxlength="255"></td>
-                    <td><input v-model="newItem.productName" size="35" class="form-control" maxlength="255"></td>
-                    <td><input type="number" v-model="newItem.quantityOnHand" size="3" class="form-control" min="0" max="999" step="1"></td>
+                    <td><span class="mobile">UPC:</span><input v-model="newItem.upc" size="12" class="form-control" maxlength="12"></td>
+                    <td><span class="mobile">Manufacturer:</span><input v-model="newItem.productMfg" size="12" class="form-control" maxlength="255"></td>
+                    <td><span class="mobile">Description:</span><input v-model="newItem.productName" size="35" class="form-control" maxlength="255"></td>
+                    <td><span class="mobile">Quantity:</span><input type="number" v-model="newItem.quantityOnHand" size="3" class="form-control" min="0" max="999" step="1"></td>
                     <td>
-                        <div class="input-group">
+                        <span class="mobile">Price:</span><div class="input-group">
                             <div class="input-group-prepend">
                                 <span class="input-group-text">$</span>
                             </div>
@@ -43,6 +43,7 @@
                         </div>
                     </td>
                     <td>
+                        <span class="mobile">Actions:<br></span>
                         <button v-on:click="createItem()" class="btn btn-primary">Create</button>
                         <button v-on:click="newItem = {}; currentErrors = []; showCreationDialog = false" class="btn btn-danger">Cancel</button>
                     </td>
@@ -63,7 +64,7 @@
                 <tr class="desktop">
                     <td>UPC</td>
                     <td>Manufacturer</td>
-                    <td>Name</td>
+                    <td>Description</td>
                     <td>Quantity</td>
                     <td>Price</td>
                     <td>Actions</td>

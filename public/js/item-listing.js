@@ -63,12 +63,12 @@ Vue.component('item-listing', {
     },
     template: /*html*/`
         <tr>
-            <td><input v-model="item.upc" size="12" v-bind:disabled="!editMode" class="form-control" maxlength="12"></td>
-            <td><input v-model="item.productMfg" size="12" v-bind:disabled="!editMode" class="form-control" maxlength="255"></td>
-            <td><input v-model="item.productName" size="35" v-bind:disabled="!editMode" class="form-control" maxlength="255"></td>
-            <td><input type="number" v-model="item.quantityOnHand" v-bind:disabled="!editMode" class="form-control" min="0" max="999" step="1"></td>
+            <td><span class="mobile">UPC:</span><input v-model="item.upc" size="12" v-bind:disabled="!editMode" class="form-control" maxlength="12"></td>
+            <td><span class="mobile">Manufacturer:</span><input v-model="item.productMfg" size="12" v-bind:disabled="!editMode" class="form-control" maxlength="255"></td>
+            <td><span class="mobile">Description:</span><input v-model="item.productName" size="35" v-bind:disabled="!editMode" class="form-control" maxlength="255"></td>
+            <td><span class="mobile">Quantity:</span><input type="number" v-model="item.quantityOnHand" v-bind:disabled="!editMode" class="form-control" min="0" max="999" step="1"></td>
             <td>
-                <div class="input-group">
+                <span class="mobile">Price:</span><div class="input-group">
                     <div class="input-group-prepend">
                         <span class="input-group-text">$</span>
                     </div>
@@ -76,6 +76,7 @@ Vue.component('item-listing', {
                 </div>
             </td>
             <td>
+                <span class="mobile">Actions:<br></span>
                 <button
                 class="btn"
                 v-bind:class="{ 'btn-info': !editMode, 'btn-secondary': editMode }"

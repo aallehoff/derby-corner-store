@@ -35,6 +35,9 @@ tr.desktop {
     Classes
 */
 
+.mobile {
+    display: inline;
+}
 
 /* 
     IDs
@@ -60,6 +63,10 @@ tr.desktop {
     }
 
     /* Classes */
+
+    .mobile {
+        display: none;
+    }
 
     /* IDs */
 }
