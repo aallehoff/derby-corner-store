@@ -15,7 +15,7 @@
 
         <div id="actionBar">
             <button v-on:click="readAll" class="btn btn-info">Refresh</button>
-            <button v-on:click="showCreationDialog = true" class="btn btn-secondary">New Item</button>
+            <button v-on:click="currentErrors = []; showCreationDialog = true" class="btn btn-secondary">New Item</button>
         </div>
 
         <div id="newItemDialog" v-if="showCreationDialog">
@@ -44,7 +44,7 @@
                     </td>
                     <td>
                         <button v-on:click="createItem" class="btn btn-primary">Create</button>
-                        <button v-on:click="newItem = {}; showCreationDialog = false" class="btn btn-danger">Cancel</button>
+                        <button v-on:click="newItem = {}; currentErrors = []; showCreationDialog = false" class="btn btn-danger">Cancel</button>
                     </td>
                 </tr>
             </table>
