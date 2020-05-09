@@ -88,15 +88,39 @@ router.route('/stock/:upc')
     })
     // DELETE single item
     .delete(async (req, res) => {
-        await db.Item.findOne({
-            where: { upc: req.params.upc }
-        })
+        await db.Item.findByPk(req.body.id)
             .then(async (item) => {
-                await item.destroy()
-                    .then(() => {
-                        res.status(200).end()
-                    })
-                    .catch(catcher(req, res))
+                // Define a function used to compare incoming item with item in memory.
+                const testForMatch = (a, b) => {
+                    const fieldsToTest = [
+                        'upc', 'productMfg', 'productName', 'quantityOnHand', 'price'
+                    ]
+                    for (let f of fieldsToTest) {
+                        // If at least one doesn't match, return false.
+                        if (a[f] !== b[f]) { return false }
+                    }
+                    // If all match, return true.
+                    return true
+                }
+
+                // Does the incoming item match the item in memory?
+                if (testForMatch(req.body, item)) {
+                    // If yes, proceed with deletion.
+                    await item.destroy()
+                        .then(() => {
+                            res.status(200).end()
+                        })
+                        .catch(catcher(req, res))
+                } else {
+                    // Otherwise, throw an error.
+                    /* 
+                        This error is structured to be compatible with the catcher function.
+                    */
+                    const MustBeIdenticalError = new Error()
+                    MustBeIdenticalError.errors = []
+                    MustBeIdenticalError.errors[0] = { message: `The data for ${req.body.upc} has been updated since you last read from it. Please refresh and try again.` }
+                    throw MustBeIdenticalError
+                }
             })
             .catch(catcher(req, res))
     })
