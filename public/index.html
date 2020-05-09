@@ -14,7 +14,7 @@
         <h2>Inventory System</h2>
 
         <div id="actionBar">
-            <button v-on:click="readAll" class="btn btn-info">Refresh</button>
+            <button v-on:click="currentErrors = []; readAll" class="btn btn-info">Refresh</button>
             <button v-on:click="currentErrors = []; showCreationDialog = true" class="btn btn-secondary">New Item</button>
         </div>
 
