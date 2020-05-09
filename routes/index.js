@@ -70,9 +70,7 @@ router.route('/stock/:upc')
     })
     // UPDATE single item
     .put(async (req, res) => {
-        await db.Item.findOne({
-            where: { upc: req.params.upc }
-        })
+        await db.Item.findByPk(req.body.id)
         .then(async (item) => {
             await item.update({
                 upc: req.body.upc,
