@@ -5,6 +5,7 @@ const app = express()
 const { sequelize, Item } = require('./db')
 const routes = require('./routes')
 const bodyParser = require('body-parser').json()
+const seedData = require('./db/seed/seed.json')
 
 // Break early if there is an error loading dotenv.
 if (dotenv.error) {
@@ -49,22 +50,7 @@ sequelize
         sequelize.sync({force: true}) // DROP TABLE IF EXISTS
             .then(() => {
                     // Load seed data into database
-                    Item.bulkCreate([
-                        {
-                            upc: '859610005973',
-                            productMfg: 'Blue Buffalo',
-                            productName: 'Blue Wilderness Small Breed Adult Dog Food Chicken',
-                            quantityOnHand: 1,
-                            price: 24.99
-                        },
-                        {
-                            upc: '818200918243',
-                            productMfg: 'Hills',
-                            productName: 'Science Diet Adult Dog Food Chicken Sensitive',
-                            quantityOnHand: 1,
-                            price: 37.99
-                        }
-                    ]).then(() => {
+                    Item.bulkCreate(seedData).then(() => {
                             // Start web server
                             app.listen(port, () => {
                             console.log(`App: server running at http://localhost:${port}/`)

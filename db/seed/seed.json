@@ -1,0 +1,37 @@
+[
+    {
+        "upc": "011110879813",
+        "productMfg": "Simple Truth",
+        "productName": "Vanilla Almond Milk",
+        "quantityOnHand": 31,
+        "price": "2.79"
+    },
+    {
+        "upc": "715141729283",
+        "productMfg": "Eggland's Best",
+        "productName": "One Dozen Grade A Large Eggs",
+        "quantityOnHand": 19,
+        "price": "3.19"
+    },
+    {
+        "upc": "041789002113",
+        "productMfg": "Maruchan",
+        "productName": "Chicken-flavor Ramen Noodles",
+        "quantityOnHand": 61,
+        "price": "0.25"
+    },
+    {
+        "upc": "051000010513",
+        "productMfg": "Campbell's",
+        "productName": "Condensed Tomato Soup",
+        "quantityOnHand": 7,
+        "price": "1.00"
+    },
+    {
+        "upc": "033200011101",
+        "productMfg": "Arm & Hammer",
+        "productName": "Baking Soda",
+        "quantityOnHand": 5,
+        "price": "1.77"
+    }
+]
