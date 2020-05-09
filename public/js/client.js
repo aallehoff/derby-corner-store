@@ -11,10 +11,9 @@ const client = new Vue({
     },
     methods: {
         createItem: async function () {
-            console.log(this.newItem)
             this.validateItem(this.newItem)
-            if (this.currentErrors.length > 0) {
-                // no errors, proceed
+            if (this.currentErrors.length != 0) {
+                // errors present, do nothing
             } else {
                 await fetch('/stock', {
                     mode: 'same-origin',
@@ -24,21 +23,45 @@ const client = new Vue({
                     },
                     body: JSON.stringify(this.newItem)
                 })
-                .then(() => {
-                    this.newItem = {} // clear input
-                    this.showCreationDialog = false
-                    this.readAll()
+                .then((response) => {
+                    if (response.ok) {
+                        this.newItem = {} // clear input
+                        this.showCreationDialog = false
+                        this.readAll()
+                    } else {
+                        response.json().then((listOfErrors) => {
+                            client.currentErrors = listOfErrors
+                        })
+                    }
                 })
+                .catch(() => {
+                    client.currentErrors = ["Couldn't connect to the server. Try again later."]
+                })
+                // .then(() => {
+                    // this.newItem = {} // clear input
+                    // this.showCreationDialog = false
+                    // this.readAll()
+                // })
             }
         },
         readAll: async function () {
             await fetch('/stock', { mode: 'same-origin' })
                     .then((response) => {
-                        return response.json()
+                        // Is the status code less than 400 ?
+                        if (response.ok) {
+                            // If so, update results.
+                            response.json().then((data) => {
+                                client.results = data
+                            })
+                        } else {
+                            // If not, update errors.
+                            response.json().then((listOfErrors) => {
+                                client.currentErrors = listOfErrors
+                            })
+                        }
                     })
-                    .then((response) => {
-                        console.log(response)
-                        client.results = response
+                    .catch(() => {
+                        client.currentErrors = ["Couldn't connect to the server. Try again later."]
                     })
         },
         validateLength: function (field, fieldName) {
@@ -78,6 +101,11 @@ const client = new Vue({
         },
         validateUPC: function (upc, fieldName) {
             const re = /^\d{12}$/u // Exactly 12 digits, unicode.
+
+            // Fail early if no field UPC is blank.
+            if (!upc) {
+                throw this.ValidationError(fieldName, 'UPC must not be blank.', 'UPC', 'nothing')
+            }
 
             if (re.test(upc)) {
                 // Intialize checks.
