@@ -4,14 +4,19 @@
 
 html {
     font-size: 14px;
+    /* rem units are relative to this font-size. */
+}
+
+body {
+    background-color: #fafafa;
 }
 
 h1 {
-    font-size: 2.5rem;
+    font-size: 2rem;
 }
 
 h2 {
-    font-size: 2rem;
+    font-size: 1.75rem;
 }
 
 h3 {
@@ -23,8 +28,13 @@ td {
     display: block;
 }
 
+
 td:last-child {
     margin-bottom: 1rem;
+}
+
+#resultsDisplay tr:nth-child(2n) {
+    background-color: #e9ecef;
 }
 
 tr.desktop {
@@ -37,6 +47,31 @@ tr.desktop {
 
 .mobile {
     display: inline;
+    color: #757575
+}
+
+.desktop {
+    color: #757575
+}
+
+.navbar {
+    background-color: #4caf50;
+    color: #fff;
+}
+
+.navbar-brand {
+    color: #fff;
+}
+
+.navbar-brand:hover {
+    color: #fff;
+    /* This is a single page app so the anchor doesn't really do anything. */
+}
+
+.jumbotron button {
+    background-color: #03A9F4;
+    color: #fff;
+    /* This fits the color scheme better than the bootstrap primary button color. */
 }
 
 /* 

@@ -10,16 +10,37 @@
 </head>
 <body>
     <div id="client" class="container-xl">
-        <h1>Company Name</h1>
-        <h2>Inventory System</h2>
+        <nav class="navbar">
+            <a class="navbar-brand" href="#">⚜ Derby Corner Store</a>
+        </nav>
 
+        <div class="jumbotron" v-if="showWelcomeMsg">
+            <h1>Welcome, new clerk!</h2>
+            <p class="lead">
+                Now that you'll be managing our inventory there are a few things you should know.
+            </p>
+            <hr>
+            <p>A UPC is made up of 12 digits, the 12th of which is a check-digit. A check-digit is a number that is used to make sure the UPC is valid; not any 12 digit number is a UPC!</p>
+            <p><em>Be sure that the UPC you enter into the system is exactly what appears on the product.</em> Anything else will be rejected.</p>
+            <p>While you wait for our first shipment today, here are some example UPCs for you to play with:</p>
+            <ul>
+                <li>051000030870</li>
+                <li>044000000578</li>
+                <li>013130006989</li>
+            </ul>
+            <p>Finally, remember that we're a convenience store not a warehouse! We don't carry any item in quantities in excess of 999, or prices of $1000 and up. Anything else just isn't smart business. Have fun!</p>
+            <button v-on:click="showWelcomeMsg = false" class="btn">Dismiss</button>
+        </div>
+
+        <h1>Inventory System</h2>
+        
         <div id="actionBar">
             <button v-on:click="currentErrors = []; readAll()" class="btn btn-info">Refresh</button>
             <button v-on:click="currentErrors = []; showCreationDialog = true" class="btn btn-secondary">New Item</button>
         </div>
 
         <div id="newItemDialog" v-if="showCreationDialog">
-            <h3>New Item</h3>
+            <h2>New Item</h3>
             <table>
                 <tr class="desktop">
                     <td>UPC</td>
@@ -52,14 +73,14 @@
         </div>
 
         <div id="errorsDisplay" v-if="currentErrors.length > 0">
-            <h3>Errors</h3>
+            <h2>Errors</h3>
             <ul>
                 <li v-for="error in currentErrors">{{ error }}</li>
             </ul>
         </div>
 
         <div id="resultsDisplay" v-if="results && showResults">
-            <h3>Results</h3>
+            <h2>Results</h3>
             <table>
                 <tr class="desktop">
                     <td>UPC</td>

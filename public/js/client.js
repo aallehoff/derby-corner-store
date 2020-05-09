@@ -8,7 +8,8 @@ const client = new Vue({
         newItem: {},
         results: '',
         showCreationDialog: false,
-        showResults: true
+        showResults: true,
+        showWelcomeMsg: true
     },
     methods: {
         createItem: async function () {
