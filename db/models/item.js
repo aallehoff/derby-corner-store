@@ -31,7 +31,8 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false,
       validate: {
         isInt: true,
-        min: 0
+        min: 0,
+        max: 999
       }
     },
     price: {
@@ -39,7 +40,8 @@ module.exports = (sequelize, Sequelize) => {
       allowNull: false,
       validate: {
         isDecimal: true,
-        min: 0
+        min: 0,
+        max: 999.99
       }
     }
   }, {sequelize})

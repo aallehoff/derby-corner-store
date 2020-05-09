@@ -20,7 +20,9 @@ const validation = {
                 { run: this.validateLength, on: item.productMfg, fieldName: 'Manufacturer' },
                 { run: this.validateLength, on: item.productName, fieldName: 'Name' },
                 { run: this.validateSign, on: item.quantityOnHand, fieldName: 'Quantity' },
-                { run: this.validateSign, on: item.price, fieldName: 'Price' }
+                { run: this.validateSign, on: item.price, fieldName: 'Price' },
+                { run: this.rejectLargeNumbers, on: item.quantityOnHand, fieldName: 'Quantity' },
+                { run: this.rejectLargeNumbers, on: item.price, fieldName: 'Price' }
             ]
             for (const r of routine) {
                 try {
@@ -85,6 +87,11 @@ const validation = {
             } else {
                 throw this.ValidationError(fieldName, 'Invalid length', 12, upc.length)
             }
+        },
+        rejectLargeNumbers: function (field, fieldName) {
+            if (field > 999.99 ) {
+                throw this.ValidationError(fieldName, 'Number is too high.', 'less than 999.99', field)
+            } 
         },
         ValidationError: function (loc, msg, exp, act) {
             return new Error(`(${loc}) ${msg}; expected ${exp}, got ${act}.`)
