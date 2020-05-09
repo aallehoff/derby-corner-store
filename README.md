@@ -64,3 +64,36 @@ If you are prompted by your system's network firewall to allow or deny traffic, 
 10. Back in the MAMP Webstart Page under the MySQL heading, click the *phpMyAdmin* link. Then click the *Databases* tab. Under the *Create database* header enter `derby-corner-store` into the *Database name* field. Leave the default encoding, and then hit the *Create* button.
 #### Run the Server
 11. Run `npm start` . This starts the server. You may now navigate to the location displayed in your console to see the project.
+
+## Self Evaluation
+### Project requirements
+- [X] __Server Side Application__
+  - [X] Create a CRUD application that communicates with an external database.
+  - [X] Create
+  - [X] Read
+  - [X] Update
+  - [X] Delete
+  - [X] Connect to a MySQL database.
+- [ ] __Responsive layout__
+   - [ ] Adapts and improves user experience per device.
+- [ ] __Custom HTML__
+    - [ ] Includes comments for major portions.
+    - [x] (optional) Bootstrap or similar.
+- [ ] __Custom CSS__
+    - [ ] Includes comments for major portions.
+    - [ ] Minimum 3 rules.
+    - [x] Minimum 1 media query.
+    - [x] Located in a seperate file; not inline.
+- [x] __Custom JS__
+    - [ ] Includes comments for major portions.
+    - [x] Minimum 1 function.
+    - [x] Located in a seperate file; not inline.
+    - [x] (optional) jQuery or similar.
+- [x] __Uploaded to GitHub__
+    - [x] Includes README file.
+- [x] __No asset swaps__
+    - [x] Must not reuse other projects from the course.
+- [x] __Interactivity__
+    - [x] Responds to actions performed by the user.
+
+### Discussion
