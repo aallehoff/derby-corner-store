@@ -1,4 +1,11 @@
 'use strict'
+
+/*
+    app.js
+
+    The entry point for the server side app.
+*/
+
 const dotenv = require('dotenv').config()
 const express = require('express')
 const app = express()

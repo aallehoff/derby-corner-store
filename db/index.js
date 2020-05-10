@@ -1,5 +1,9 @@
 'use strict';
 
+/*
+  Configure and export the database connection.
+*/
+
 const Sequelize = require('sequelize');
 
 // Initialize configuration.

@@ -4,13 +4,8 @@ const express = require('express')
 const router = express.Router()
 const db = require('../db')
 
-// function placeholderResponse(req, res) {
-//     console.dir(req.body)
-//     res.send(`Received ${req.method} to ${req.route.path}.
-//     Body:
-//     ${JSON.stringify(req.body)}`)
-// }
 
+// A function to aid in handling errors.
 function catcher (req, res) {
     return (err) => {
         // Is the error produced by Sequelize?
@@ -20,11 +15,11 @@ function catcher (req, res) {
             for (let e of err.errors) {
                 listOfErrors.push(`(${e.path}) ${e.type}: ${e.message}`)
             }
-            res.status(400).send(listOfErrors)
+            res.status(400).send(listOfErrors) // 400 means client is responsible for error.
         } else {
             // If not, end with 500.
             console.error(err)
-            res.status(500).end()
+            res.status(500).end() // 500 means server is responsible for error.
         }
     }
 }
