@@ -22,7 +22,7 @@ const validation = {
             const routine = [
                 { run: this.validateUPC, on: item.upc, fieldName: 'UPC' },
                 { run: this.validateLength, on: item.productMfg, fieldName: 'Manufacturer' },
-                { run: this.validateLength, on: item.productName, fieldName: 'Name' },
+                { run: this.validateLength, on: item.productName, fieldName: 'Description' },
                 { run: this.validateSign, on: item.quantityOnHand, fieldName: 'Quantity' },
                 { run: this.validateSign, on: item.price, fieldName: 'Price' },
                 { run: this.rejectLargeNumbers, on: item.quantityOnHand, fieldName: 'Quantity' },
