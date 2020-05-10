@@ -49,6 +49,7 @@ Vue.component('item-listing', {
                     } else {
                         response.json().then((listOfErrors) => {
                             client.currentErrors = listOfErrors
+                            this.cancelEdit(item)
                         })
                     }
                 })
