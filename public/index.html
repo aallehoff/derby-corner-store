@@ -79,7 +79,7 @@
             </ul>
         </div>
 
-        <div id="resultsDisplay" v-if="results && showResults">
+        <div id="resultsDisplay" v-if="results.length > 0 && showResults">
             <h2>Results</h3>
             <table>
                 <tr class="desktop">
@@ -94,6 +94,10 @@
                     <item-listing v-on:refresh-results="readAll()" v-for='result in results' v-bind:item="result" v-bind:key="'item' + result.id"></item-listing>
                 </template>
             </table>
+        </div>
+
+        <div v-if="showCreationDialog === false && results.length === 0">
+            <p>Stock is empty; no items to display.</p>
         </div>
     </div>
     <script src="js/vue.js"></script>
