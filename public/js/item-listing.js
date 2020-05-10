@@ -46,6 +46,7 @@ Vue.component('item-listing', {
                 .then((response) => {
                     if (response.ok) {
                         this.$emit('refresh-results')
+                        this.editMode = false;
                     } else {
                         response.json().then((listOfErrors) => {
                             client.currentErrors = listOfErrors
@@ -106,7 +107,7 @@ Vue.component('item-listing', {
                 <button
                 class="btn"
                 v-bind:class="{ 'btn-primary': editMode, 'btn-danger': !editMode }"
-                v-on:click="editMode ? submitEdit(item) : deleteItem(item); editMode = false"
+                v-on:click="editMode ? submitEdit(item) : deleteItem(item)"
                 >{{ editMode ? 'Submit' : 'Delete' }}</button>
             </td>
         </tr>
