@@ -24,7 +24,7 @@ const validation = {
                 { run: this.rejectLargeNumbers, on: item.quantityOnHand, fieldName: 'Quantity' },
                 { run: this.rejectLargeNumbers, on: item.price, fieldName: 'Price' },
                 { run: this.rejectNonNumbers, on: item.quantityOnHand, fieldName: 'Quantity' },
-                {run: this.rejectNonNumbers, on: item.price, fieldName: 'Price'}
+                { run: this.rejectNonNumbers, on: item.price, fieldName: 'Price' }
             ]
             for (const r of routine) {
                 try {
