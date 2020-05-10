@@ -22,7 +22,9 @@ const validation = {
                 { run: this.validateSign, on: item.quantityOnHand, fieldName: 'Quantity' },
                 { run: this.validateSign, on: item.price, fieldName: 'Price' },
                 { run: this.rejectLargeNumbers, on: item.quantityOnHand, fieldName: 'Quantity' },
-                { run: this.rejectLargeNumbers, on: item.price, fieldName: 'Price' }
+                { run: this.rejectLargeNumbers, on: item.price, fieldName: 'Price' },
+                { run: this.rejectNonNumbers, on: item.quantityOnHand, fieldName: 'Quantity' },
+                {run: this.rejectNonNumbers, on: item.price, fieldName: 'Price'}
             ]
             for (const r of routine) {
                 try {
@@ -92,6 +94,11 @@ const validation = {
             if (field > 999.99 ) {
                 throw this.ValidationError(fieldName, 'Number is too high.', 'less than 999.99', field)
             } 
+        },
+        rejectNonNumbers: function (field, fieldName) {
+            if (field === undefined) {
+                throw this.ValidationError(fieldName, `${fieldName} may not be blank.`, '', '')
+            }
         },
         ValidationError: function (loc, msg, exp, act) {
             return new Error(`(${loc}) ${msg}; expected ${exp}, got ${act}.`)
