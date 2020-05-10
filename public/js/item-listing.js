@@ -9,6 +9,26 @@ Vue.component('item-listing', {
         }
     },
     methods: {
+        cancelEdit: async function (item) {
+            await fetch(`/stock/${item.id}`, { mode: 'same-origin' })
+            .then((response) => {
+                // Is the status code less than 400 ?
+                if (response.ok) {
+                    // If so, update item.
+                    response.json().then((data) => {
+                        this.item = data
+                    })
+                } else {
+                    // If not, update errors.
+                    response.json().then((listOfErrors) => {
+                        client.currentErrors = listOfErrors
+                    })
+                }
+            })
+            .catch(() => {
+                client.currentErrors = ["Couldn't connect to the server. Try again later."]
+            })
+        },
         submitEdit: async function (item) {
             this.validateItem(item)
             if (client.currentErrors.length != 0) {
@@ -80,7 +100,7 @@ Vue.component('item-listing', {
                 <button
                 class="btn"
                 v-bind:class="{ 'btn-info': !editMode, 'btn-secondary': editMode }"
-                v-on:click="editMode = !editMode" 
+                v-on:click="editMode ? cancelEdit(item) : ()=>{} ; editMode = !editMode;" 
                 >{{ editMode ? 'Cancel' : 'Edit' }}</button>
                 <button
                 class="btn"

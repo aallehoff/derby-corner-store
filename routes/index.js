@@ -57,12 +57,10 @@ router.route('/stock')
             .catch(catcher(req, res))
     })
 
-router.route('/stock/:upc')
+router.route('/stock/:id')
     // READ single item
     .get(async (req, res) => {
-        await db.Item.findOne({
-            where: { upc: req.params.upc }
-        })
+        await db.Item.findByPk(req.params.id)
         .then((data) => {
             res.json(data)
         })
