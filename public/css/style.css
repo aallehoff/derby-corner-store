@@ -96,10 +96,6 @@ tr.desktop {
 
 @media (min-width: 940px) {
     /* Elements */
-    table {
-        margin: 0 5%;
-        /* Visually pleasing alternative to centering, prevents breakage. */
-    }
     tbody {
         display: table-row-group;
     }
