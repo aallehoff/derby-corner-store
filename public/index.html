@@ -72,8 +72,8 @@
             </table>
         </div>
 
-        <div id="errorsDisplay" v-if="currentErrors.length > 0">
-            <h2>Errors</h3>
+        <div id="errorsDisplay" v-if="currentErrors.length > 0" class="alert alert-warning">
+            <h2 class="alert-heading">Errors</h3>
             <ul>
                 <li v-for="error in currentErrors">{{ error }}</li>
             </ul>
