@@ -2,11 +2,11 @@ const validation = {
     methods: {
         validateLength: function (field, fieldName) {
             if (!field) {
-                throw this.ValidationError(fieldName, 'Must not be empty', 'more than 0 characters', '0')
+                throw this.ValidationError(`${fieldName} must not be empty.`)
             } else {
                 const len = field.length
-                if (len > 255 || len < 1) {
-                    throw this.ValidationError(fieldName, 'Invalid length', 'less than 256 and more than 0', field.length)
+                if (len > 255) {
+                    throw this.ValidationError(`${fieldName} must be less than 255 characters long.`)
                 }
             }
         },
@@ -39,7 +39,7 @@ const validation = {
         validateSign: function (field, fieldName) {
             const num = Number(field)
             if ( num < 0 ) {
-                throw this.ValidationError(fieldName, 'Invalid sign', 'positive number', num)
+                throw this.ValidationError(`${fieldName} must be a positive number.`)
             }
         },
         validateUPC: function (upc, fieldName) {
@@ -47,7 +47,7 @@ const validation = {
 
             // Fail early if no field UPC is blank.
             if (!upc) {
-                throw this.ValidationError(fieldName, 'UPC must not be blank.', 'UPC', 'nothing')
+                throw this.ValidationError(`Invalid UPC. Enter the UPC exactly as it appears on the product.`)
             }
 
             if (re.test(upc)) {
@@ -84,24 +84,30 @@ const validation = {
                 if (actualCheck == expectedCheck) {
                     // valid UPC; no action needed
                 } else {
-                    throw this.ValidationError(fieldName, 'Invalid check digit', expectedCheck, actualCheck)
+                    throw this.ValidationError(`Invalid UPC. Enter the UPC exactly as it appears on the product.`)
                 }
             } else {
-                throw this.ValidationError(fieldName, 'Invalid length', 12, upc.length)
+                throw this.ValidationError(`Invalid UPC. Must be exactly twelve digits long.`)
             }
         },
         rejectLargeNumbers: function (field, fieldName) {
-            if (field > 999.99 ) {
-                throw this.ValidationError(fieldName, 'Number is too high.', 'less than 999.99', field)
-            } 
+            if (fieldName === 'Quantity') {
+                if (field > 999 ) {
+                    throw this.ValidationError(`${fieldName} must be less than or equal to 999.`)
+                } 
+            } else if (fieldName === 'Price') {
+                if (field > 999.99 ) {
+                    throw this.ValidationError(`${fieldName} must be less than or equal to $999.99.`)
+                } 
+            }
         },
         rejectNonNumbers: function (field, fieldName) {
             if (field === undefined) {
-                throw this.ValidationError(fieldName, `${fieldName} may not be blank.`, '', '')
+                throw this.ValidationError(`${fieldName} may not be blank.`)
             }
         },
-        ValidationError: function (loc, msg, exp, act) {
-            return new Error(`(${loc}) ${msg}; expected ${exp}, got ${act}.`)
+        ValidationError: function (msg) {
+            return new Error(`${msg}`)
         }
     }
 }
