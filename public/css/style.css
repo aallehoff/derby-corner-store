@@ -88,11 +88,6 @@ tr.desktop {
     color: #fff;
 }
 
-.navbar-brand:hover {
-    color: #fff;
-    /* This is a single page app so the anchor doesn't really do anything. */
-}
-
 .jumbotron button {
     background-color: #03A9F4;
     color: #fff;
@@ -103,14 +98,34 @@ tr.desktop {
     IDs
 */
 
-#actionBar, #newItemDialog, #errorsDisplay, #resultsDisplay {
+#newItemDialog, #errorsDisplay, #resultsDisplay {
     margin-bottom: 2rem;
+}
+
+#navbar, #actionBar {
+    display: flex;
+    flex-flow: column nowrap;
+    align-items: stretch;
+}
+
+#actionBar {
+    width: 100%;
 }
 
 
 /* 
     Media Queries
 */
+
+@media (min-width: 825px) {
+    #navbar, #actionBar {
+        display: block;
+    }
+    
+    #actionBar {
+        width: auto;
+    }
+}
 
 @media (min-width: 940px) {
     /* Elements */

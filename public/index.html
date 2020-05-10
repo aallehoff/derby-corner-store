@@ -11,11 +11,16 @@
 <body>
     <div id="client" class="container-xl">
         <nav class="navbar">
-            <a class="navbar-brand" href="#">⚜ Derby Corner Store</a>
+            <a class="navbar-brand">⚜ Derby Corner Store</a>
+
+            <div id="actionBar">
+                <button v-on:click="currentErrors = []; readAll()" class="btn btn-info">Refresh</button>
+                <button v-on:click="currentErrors = []; showCreationDialog = true" class="btn btn-secondary">New Item</button>
+            </div>
         </nav>
 
         <div class="jumbotron" v-if="showWelcomeMsg">
-            <h1>Welcome, new clerk!</h2>
+            <h1>Welcome, new clerk!</h1>
             <p class="lead">
                 Now that you'll be managing our inventory there are a few things you should know.
             </p>
@@ -32,15 +37,10 @@
             <button v-on:click="showWelcomeMsg = false" class="btn">Dismiss</button>
         </div>
 
-        <h1>Inventory System</h2>
-        
-        <div id="actionBar">
-            <button v-on:click="currentErrors = []; readAll()" class="btn btn-info">Refresh</button>
-            <button v-on:click="currentErrors = []; showCreationDialog = true" class="btn btn-secondary">New Item</button>
-        </div>
+        <h1>Inventory System</h1>
 
         <div id="newItemDialog" v-if="showCreationDialog">
-            <h2>New Item</h3>
+            <h2>New Item</h2>
             <table>
                 <tr class="desktop">
                     <td>UPC</td>
@@ -73,14 +73,14 @@
         </div>
 
         <div id="errorsDisplay" v-if="currentErrors.length > 0" class="alert alert-warning">
-            <h2 class="alert-heading">Errors</h3>
+            <h2 class="alert-heading">Errors</h2>
             <ul>
                 <li v-for="error in currentErrors">{{ error }}</li>
             </ul>
         </div>
 
         <div id="resultsDisplay" v-if="results.length > 0 && showResults">
-            <h2>Results</h3>
+            <h2>Results</h2>
             <table>
                 <tr class="desktop">
                     <td>UPC</td>
