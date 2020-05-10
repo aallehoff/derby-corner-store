@@ -25,9 +25,16 @@ h3 {
 
 /* Tables */
 td {
-    display: block;
+    display: flex;
+    flex-flow: column nowrap;
 }
 
+tbody {
+    /* Applying these rules to <table> has no effect. A <tbody> is inserted between <table> and <tr>. */
+    display: flex;
+    flex-flow: row wrap;
+    justify-content: space-around;
+}
 
 td:last-child {
     margin-bottom: 1rem;
@@ -89,19 +96,27 @@ tr.desktop {
 
 @media (min-width: 940px) {
     /* Elements */
+    table {
+        margin: 0 5%;
+        /* Visually pleasing alternative to centering, prevents breakage. */
+    }
+    tbody {
+        display: table-row-group;
+    }
     td {
         display: table-cell;
+    }
+
+    
+    /* Classes */
+    .mobile {
+        display: none;
     }
 
     tr.desktop {
         display: table-row;
     }
-
-    /* Classes */
-
-    .mobile {
-        display: none;
-    }
+    
 
     /* IDs */
 }
