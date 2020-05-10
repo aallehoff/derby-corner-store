@@ -23,9 +23,23 @@ h3 {
     font-size: 1.5rem;
 }
 
+/* Input */
 input[type="number"] {
     width: 6rem;
 }
+
+input.upc[type="number"] {
+    -moz-appearance: textfield; /* Remove selector arrows in Firefox. */
+    width: 8.5rem; /* Set length suitable for 12 variable width numerals. */
+}
+
+input.upc::-webkit-inner-spin-button,
+input.upc::-webkit-outer-spin-button {
+    /* Remove selector arrows in Webkit browsers. */
+    -webkit-appearance: none;
+    -margin: 0;
+}
+
 
 /* Tables */
 td {

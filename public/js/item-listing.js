@@ -63,9 +63,9 @@ Vue.component('item-listing', {
     },
     template: /*html*/`
         <tr>
-            <td><span class="mobile">UPC:</span><input v-model="item.upc" size="12" v-bind:disabled="!editMode" class="form-control" maxlength="12"></td>
-            <td><span class="mobile">Manufacturer:</span><input v-model="item.productMfg" size="12" v-bind:disabled="!editMode" class="form-control" maxlength="255"></td>
-            <td><span class="mobile">Description:</span><input v-model="item.productName" size="35" v-bind:disabled="!editMode" class="form-control" maxlength="255"></td>
+            <td><span class="mobile">UPC:</span><input v-model="item.upc" size="12" v-bind:disabled="!editMode" class="form-control upc" type="number" min="0" max="999999999999"></td>
+            <td><span class="mobile">Manufacturer:</span><input v-model="item.productMfg" v-bind:disabled="!editMode" class="form-control" size="12" maxlength="255"></td>
+            <td><span class="mobile">Description:</span><input v-model="item.productName" v-bind:disabled="!editMode" class="form-control" size="35" maxlength="255"></td>
             <td><span class="mobile">Quantity:</span><input type="number" v-model="item.quantityOnHand" v-bind:disabled="!editMode" class="form-control" min="0" max="999" step="1"></td>
             <td>
                 <span class="mobile">Price:</span><div class="input-group">
