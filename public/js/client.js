@@ -1,8 +1,9 @@
 'use strict'
 
+// Parent instance
 const client = new Vue({
     el: '#client',
-    mixins: [validation],
+    mixins: [validation], // Loads validation methods into this component's namespace.
     data: {
         currentErrors: [],
         newItem: {},
@@ -13,7 +14,14 @@ const client = new Vue({
     },
     methods: {
         createItem: async function () {
+            /* 
+                Create
+            */
+
+            // Validate
             this.validateItem(this.newItem)
+            
+            // Send request to server
             if (client.currentErrors.length != 0) {
                 // errors present, do nothing
             } else {
@@ -26,11 +34,14 @@ const client = new Vue({
                     body: JSON.stringify(this.newItem)
                 })
                 .then((response) => {
+                    // Is the status code less than 400?
                     if (response.ok) {
+                        // If so, proceed.
                         this.newItem = {} // clear input
                         this.showCreationDialog = false
                         this.readAll()
                     } else {
+                        // If not, update errors.
                         response.json().then((listOfErrors) => {
                             client.currentErrors = listOfErrors
                         })
@@ -39,14 +50,14 @@ const client = new Vue({
                 .catch(() => {
                     client.currentErrors = ["Couldn't connect to the server. Try again later."]
                 })
-                // .then(() => {
-                    // this.newItem = {} // clear input
-                    // this.showCreationDialog = false
-                    // this.readAll()
-                // })
             }
         },
         readAll: async function () {
+            /* 
+                READ
+            */
+           
+            // Send request to server
             await fetch('/stock', { mode: 'same-origin' })
                     .then((response) => {
                         // Is the status code less than 400 ?

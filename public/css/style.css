@@ -26,6 +26,7 @@ h3 {
 /* Input */
 input[type="number"] {
     width: 6rem;
+    /* Aids browser consistency */
 }
 
 input.upc[type="number"] {
@@ -56,14 +57,17 @@ tbody {
 
 td:last-child {
     margin-bottom: 1rem;
+    /* Puts some breathing room between items in the results. */
 }
 
 #resultsDisplay tr:nth-child(2n) {
     background-color: #e9ecef;
+    /* Alternate shading on results items for ease of use. */
 }
 
 tr.desktop {
     display: none;
+    /* Mobile first; defaults to none and is later changed in a media query. */
 }
 
 /* 
@@ -73,6 +77,7 @@ tr.desktop {
 .mobile {
     display: inline;
     color: #757575
+    /* Mobile first; display defaults to inline and is later changed in a media query. */
 }
 
 .desktop {
@@ -100,12 +105,14 @@ tr.desktop {
 
 #newItemDialog, #errorsDisplay, #resultsDisplay {
     margin-bottom: 2rem;
+    /* Provides visual seperation of main elements. */
 }
 
 #navbar, #actionBar {
     display: flex;
     flex-flow: column nowrap;
     align-items: stretch;
+    /* Mobile first; defaults for responsive navbar. */
 }
 
 #actionBar {
@@ -117,6 +124,7 @@ tr.desktop {
     Media Queries
 */
 
+/* Switches navbar into large screen mode. */
 @media (min-width: 825px) {
     #navbar, #actionBar {
         display: block;
@@ -127,6 +135,7 @@ tr.desktop {
     }
 }
 
+/* Switches tables into large screen mode. */
 @media (min-width: 940px) {
     /* Elements */
     tbody {

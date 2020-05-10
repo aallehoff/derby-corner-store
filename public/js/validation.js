@@ -1,6 +1,8 @@
+// The contents of this mixin file are imported into other component's namespace.
 const validation = {
     methods: {
         validateLength: function (field, fieldName) {
+            // Does field exist and is it less than 255 characters long?
             if (!field) {
                 throw this.ValidationError(`${fieldName} must not be empty.`)
             } else {
@@ -12,9 +14,11 @@ const validation = {
         },
         validateItem: function (item) {
             /* 
-                currentErrors is a property of the 'client' component, not 'this'
+                Main validation method.
+                Note: currentErrors is a property of the 'client' component, not 'this'.
             */
             client.currentErrors = [] // clear existing errors
+            // Build routine.
             const routine = [
                 { run: this.validateUPC, on: item.upc, fieldName: 'UPC' },
                 { run: this.validateLength, on: item.productMfg, fieldName: 'Manufacturer' },
@@ -37,12 +41,19 @@ const validation = {
             }
         },
         validateSign: function (field, fieldName) {
+            // Is the field a positive number?
             const num = Number(field)
             if ( num < 0 ) {
                 throw this.ValidationError(`${fieldName} must be a positive number.`)
             }
         },
         validateUPC: function (upc, fieldName) {
+            /*
+                UPC Validation
+
+                Implements: https://www.gs1.org/services/how-calculate-check-digit-manually 
+                Note: the gs1 algorithm is 1-indexed, this implementation is 0-indexed.
+            */
             const re = /^\d{12}$/u // Exactly 12 digits, unicode.
 
             // Fail early if no field UPC is blank.
@@ -91,6 +102,7 @@ const validation = {
             }
         },
         rejectLargeNumbers: function (field, fieldName) {
+            // Is the field less than an arbitrary number?
             if (fieldName === 'Quantity') {
                 if (field > 999 ) {
                     throw this.ValidationError(`${fieldName} must be less than or equal to 999.`)
@@ -102,11 +114,13 @@ const validation = {
             }
         },
         rejectNonNumbers: function (field, fieldName) {
+            // Is the number blank?
             if (field === undefined) {
                 throw this.ValidationError(`${fieldName} may not be blank.`)
             }
         },
         ValidationError: function (msg) {
+            // A custom error for validation routines.
             return new Error(`${msg}`)
         }
     }
