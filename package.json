@@ -1,7 +1,7 @@
 {
-  "name": "bucl_fs_final_project",
+  "name": "derby-corner-store",
   "version": "0.0.0",
-  "description": "Code Louisville Full-Stack JavaScript Final Project",
+  "description": "CEPR 610 Final Project",
   "main": "app.js",
   "scripts": {
     "start": "node app.js",
